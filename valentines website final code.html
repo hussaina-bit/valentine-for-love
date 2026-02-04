@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Be My Valentine mustafa❤️</title><style>
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+}
+
+.heart {
+    position: absolute;
+    color: rgba(255,255,255,0.7);
+    font-size: 20px;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    transition: 0.6s;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.2);
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    max-width: 420px;
+}
+
+h1 {
+    color: #ff4d6d;
+}
+
+button {
+    padding: 12px 24px;
+    margin: 10px;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.yes {
+    background: #ff4d6d;
+    color: white;
+}
+
+.no {
+    background: #eee;
+}
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin: 8px;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.typing {
+    border-right: 3px solid #ff4d6d;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+</style></head>
+<body><audio autoplay loop>
+    <source src="music.mp3" type="audio/mp3">
+</audio><div id="hearts"></div><!-- Page 1 --><div class="page" id="page1">
+<div class="card">
+<h1 class="typing" id="typingText"></h1>
+<button class="yes" onclick="nextPage(2)">Open 💌</button>
+</div>
+</div><!-- Page 2 Photos --><div class="page hidden" id="page2">
+<div class="card">
+<h1>Our Memories 📸</h1>
+<div class="gallery">
+<img src="photo1.png">
+<img src="photo2.jpeg">
+<img src="photo3.jpeg">
+</div>
+<button class="yes" onclick="nextPage(3)">Next ❤️</button>
+</div>
+</div><!-- Page 3 Question --><div class="page hidden" id="page3">
+<div class="card">
+<h1>Will You Be My Valentine? ❤️</h1>
+<button class="yes" id="yesBtn" onclick="sayYes()">Yes 💖</button>
+<button class="no" id="noBtn" onmouseover="moveNo()">No 😢</button>
+<p id="msg"></p>
+</div>
+</div><!-- Page 4 Final --><div class="page hidden" id="page4">
+<div class="card">
+<h1>Yayyyy ❤️</h1>
+<p>I Love You So Much 😘</p>
+<p>Forever Yours 💕</p>
+<button class="yes" onclick="nextPage(5)">Unlock Secret 💌</button>
+</div>
+</div><!-- Page 5 Secret Unlock --><div class="page hidden" id="page5">
+<div class="card">
+<h1>Secret Message 🔐</h1>
+<p>Enter Our 1st official rasam date ❤️</p>
+<input type="password" id="secretInput" placeholder="DDMMYYYY">
+<br>
+<button class="yes" onclick="checkSecret()">Unlock 💖</button>
+<p id="secretMsg"></p>
+</div>
+</div><script>
+
+/* Typing */
+const text = "Hey Love,I Made This For You";
+let i = 0;
+function typing(){
+    if(i < text.length){
+        document.getElementById("typingText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing, 70);
+    }
+}
+typing();
+
+/* Hearts */
+function createHeart(){
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '❤️';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (3 + Math.random()*5) + 's';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),8000);
+}
+setInterval(createHeart, 300);
+
+/* Navigation */
+function nextPage(num){
+    document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+    document.getElementById('page'+num).classList.remove('hidden');
+}
+
+/* Yes */
+function sayYes(){
+    nextPage(4);
+}
+
+/* Moving No + Growing Yes */
+let yesSize = 18;
+function moveNo(){
+    const btn = document.getElementById('noBtn');
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+
+    btn.style.position = 'absolute';
+    btn.style.left = x + 'px';
+    btn.style.top = y + 'px';
+
+    document.getElementById('msg').innerText = "You can't say no 😘";
+
+    yesSize += 5;
+    document.getElementById('yesBtn').style.fontSize = yesSize + 'px';
+}
+
+/* Secret Code */
+const secretCode = "110124"; // Change to your date
+
+function checkSecret(){
+    const input = document.getElementById('secretInput').value;
+    if(input === secretCode){
+        document.getElementById('secretMsg').innerText = "i love you sooooo muchhhh mustafa,you are the bestestest thing that has ever happened to me,i cant imagine my life without you,and i wish that every valentines day finds us together,loving each other a little more than before❤️";
+    } else {
+        document.getElementById('secretMsg').innerText = "wtffff you dont remember it?????";
+    }
+}
+
+</script></body>
+</html>
